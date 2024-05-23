@@ -1,0 +1,73 @@
+using System;
+using System.Windows.Forms;
+using System.Data.SqlClient;
+1 reference
+public partial class ReservationForm: Form
+{
+// SQL Server bağlantı stringiniz
+1 reference
+private string connectionString = "Server=your_server_name; Database=your_database_name; Integrated Security=True;";
+O references
+public ReservationForm()
+{
+InitializeComponent();
+InitializeFormControls();
+1 reference
+private void InitializeFormControls()
+{
+// Label ve TextBox kontrolleri burada eklenir
+// Örnek olarak sadece bir tane gösterilmiştir.
+Label nameLabel = new Label { Text = "Ad:" };
+TextBox nameTextBox = new TextBox { Name = "nameTextBox" };
+Label emailLabel = new Label { Text "E-posta:" };
+TextBox emailTextBox = new TextBox { Name = "emailTextBox" };
+// Giriş ve çıkış tarihleri için DateTimePicker kullanılabilir.
+Label checkInLabel new Label ( Text "Giriş Tarihi:" };
+DateTimePicker checkInDateTimePicker new DateTimePicker { Name "checkInDateTimePicker");
+Label checkOutLabel = new Label { Text = "ks Tarihi:" };
+DateTimePicker checkOutDateTimePicker new DateTimePicker { Name = "checkOutDateTimePicker" );
+Button saveButton = new Button { Text = "Rezervasyonu Kaydet" };
+saveButton.Click += new EventHandler(SaveButton_Click);
+// Kontrolleri forma ekleyin
+this.Controls.Add(nameLabel);
+this.Controls.Add(nameTextBox);
+this.Controls.Add(emailLabel);
+this.Controls.Add(emailTextBox);
+this.Controls.Add(checkInLabel);
+this.Controls.Add(checkInDateTimePicker);
+this.Controls.Add(checkOutLabel);
+this.Controls.Add(checkOutDateTimePicker);
+this.Controls.Add(saveButton);
+1 reference
+private void SaveButton_Click(object sender, EventArgs e)
+{
+// TextBox'lardan bilgileri al
+string customerName = this.Controls["nameTextBox"].Text;
+string email this.Controls ["emailTextBox"].Text;
+DateTime checkInDate ((DateTimePicker)this.Controls ["checkInDateTimePicker"]).Value;
+DateTime checkOutDate ((DateTimePicker)this.Controls ["checkOutDateTimePicker"]).Value;
+// Veritabanı bağlantısı yap ve kaydı ekle
+using (SqlConnection connection new SqlConnection(connectionString))
+{
+string sql = "INSERT INTO Reservations (CustomerName, Email, CheckInDate, CheckOutDate) VALUES (@CustomerName, @Email, @CheckInDate, @CheckOutDate)";
+using (SqlCommand command new SqlCommand(sql, connection))
+{
+command.Parameters.AddWithValue("@CustomerName", customerName); command.Parameters.AddWithValue("@Email", email); command.Parameters.AddWithValue("@CheckInDate", checkInDate); command.Parameters.AddWithValue("@CheckOutDate", checkoutDate);
+// Veritabanı bağlantısını aç
+connection.Open();
+// Sorguyu çalıştır ve etkilenen satır sayısını al
+int result command.ExecuteNonQuery();
+if (result > 0)
+{
+}
+MessageBox.Show("Rezervasyon başarıyla kaydedildi.");
+else
+{
+}
+// Bağlantıyı kapat
+MessageBox.Show("Rezervasyon kaydedilirken bir hata oluştu.");
+connection.Close();
+}
+}
+}
+}
