@@ -1,18 +1,18 @@
 using System;
 using System.Windows.Forms;
 using System.Data.SqlClient;
-1 reference
+
 public partial class ReservationForm: Form
 {
 // SQL Server bağlantı stringiniz
-1 reference
+
 private string connectionString = "Server=your_server_name; Database=your_database_name; Integrated Security=True;";
-O references
+
 public ReservationForm()
 {
 InitializeComponent();
 InitializeFormControls();
-1 reference
+
 private void InitializeFormControls()
 {
 // Label ve TextBox kontrolleri burada eklenir
@@ -38,7 +38,7 @@ this.Controls.Add(checkInDateTimePicker);
 this.Controls.Add(checkOutLabel);
 this.Controls.Add(checkOutDateTimePicker);
 this.Controls.Add(saveButton);
-1 reference
+
 private void SaveButton_Click(object sender, EventArgs e)
 {
 // TextBox'lardan bilgileri al
